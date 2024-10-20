@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Appointments</title>
+    <link rel="stylesheet" href="/styles.css">
+        <link rel="stylesheet" type="text/css" th:href="@{/styles.css}"/>
+    
+    
+</head>
+<body>
+    <h2>Appointments</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Email</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        <tr th:each="appointment : ${appointments}">
+            <td th:text="${appointment.id}">1</td>
+            <td th:text="${appointment.firstName}">First Name</td>
+            <td th:text="${appointment.email}">Email</td>
+            <td th:text="${appointment.appointmentDate}">Date</td>
+            <td th:text="${appointment.appointmentTime}">Time</td>
+            <td><a th:href="@{/editAppointment/{id}(id=${appointment.id})}">Edit</a></td>
+            <td><a th:href="@{/deleteAppointment/{id}(id=${appointment.id})}">Delete</a></td>
+        </tr>
+    </table>
+
+    <h2>Add New Appointment</h2>
+    <form th:action="@{/insertAppointment}" th:object="${appointment}" method="post">
+        First Name: <input type="text" th:field="*{firstName}" /><br>
+        Email: <input type="text" th:field="*{email}" /><br>
+        Date: <input type="date" th:field="*{appointmentDate}" /><br>
+        Time: <input type="time" th:field="*{appointmentTime}" /><br>
+        <button type="submit">Add Appointment</button>
+    </form>
+</body>
+</html>
